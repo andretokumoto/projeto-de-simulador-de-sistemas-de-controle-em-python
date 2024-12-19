@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import control as ct
+import numpy as np
 
 #retorna a função transferencia para os indices da função
 def funcao_transferencia(numerador,denominador):
@@ -48,4 +49,11 @@ def plota_zero_polo(funcao_transferencia):
         plt.show()
 
             
+
+numerador = 1
+denominador = [1,1]
     
+transferencia = funcao_transferencia(numerador,denominador)
+print(type(transferencia))
+print()
+print(transferencia)

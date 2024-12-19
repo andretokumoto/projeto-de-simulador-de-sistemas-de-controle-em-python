@@ -1,5 +1,4 @@
 import analise_de_sistemas as analise
-import numpy as np
 from scipy import signal
 
 
