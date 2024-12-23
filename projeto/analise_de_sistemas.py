@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import control as ct
 import numpy as np
+from scipy import signal
 
 #retorna a função transferencia para os indices da função
 def funcao_transferencia(numerador,denominador):
@@ -27,7 +28,7 @@ def plota_resposta(funcao_transferencia,tipo):
 def plota_bode(funcao_transferencia):
     
     # Resposta em frequência (Bode)
-    mag, phase, omega = ct.bode(funcao_transferencia, Plot=False)
+    mag, phase, omega = ct.bode(funcao_transferencia, plot=False)
     
     # Cria a figura
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
@@ -69,5 +70,3 @@ def plota_zero_polo(funcao_transferencia):
         plt.title('Polos e Zeros')
         plt.legend()
         plt.show()
-
-            
