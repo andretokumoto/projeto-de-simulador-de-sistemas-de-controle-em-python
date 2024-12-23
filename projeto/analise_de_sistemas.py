@@ -16,22 +16,44 @@ def plota_resposta(funcao_transferencia,tipo):
     if tipo == 'degrau':     
         t,y = ct.step_response(funcao_transferencia)  
         
+    title = 'Resposta ao '+tipo
+    plt.plot(t,y)
     plt.xlabel('Tempo (s)')
     plt.ylabel('Resposta')
-    plt.title('Resposta ao ',tipo)
+    plt.title(title)
     plt.grid(True)
     plt.show()   
 
 def plota_bode(funcao_transferencia):
     
-    #resposta em frequencia(bode)
-    mag, phase, omega = ct.bode(funcao_transferencia)    
+    # Resposta em frequência (Bode)
+    mag, phase, omega = ct.bode(funcao_transferencia, Plot=False)
+    
+    # Cria a figura
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
+    
+    # Magnitude
+    ax1.semilogx(omega, 20 * np.log10(mag))
+    ax1.set_title('Diagrama de Bode')
+    ax1.set_ylabel('Magnitude (dB)')
+    ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
+    
+    # Fase
+    ax2.semilogx(omega, phase * (180.0 / np.pi))
+    ax2.set_xlabel('Frequência (rad/s)')
+    ax2.set_ylabel('Fase (graus)')
+    ax2.grid(True, which='both', linestyle='--', linewidth=0.5)
+    
+    # Exibe o gráfico
+    plt.tight_layout()
+    plt.show()
+
 
 def plota_zero_polo(funcao_transferencia):     
 
         #polos e zeros
-        poles = ct.pole(funcao_transferencia)
-        zeros = ct.zero(funcao_transferencia)
+        poles = ct.poles(funcao_transferencia)
+        zeros = ct.zeros(funcao_transferencia)
         
         # Plotar polos e zeros
         plt.figure()
@@ -49,11 +71,3 @@ def plota_zero_polo(funcao_transferencia):
         plt.show()
 
             
-
-numerador = 1
-denominador = [1,1]
-    
-transferencia = funcao_transferencia(numerador,denominador)
-print(type(transferencia))
-print()
-print(transferencia)
