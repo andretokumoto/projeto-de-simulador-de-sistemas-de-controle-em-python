@@ -70,3 +70,16 @@ def plota_zero_polo(funcao_transferencia):
         plt.title('Polos e Zeros')
         plt.legend()
         plt.show()
+        
+def simular_malha_fechada(planta,sensor,controlador):
+ 
+        sistema_aberto = controlador * planta
+        sistema_malha_fechada = ct.feedback(sistema_aberto, sensor)
+
+        t, y = ct.step_response(sistema_malha_fechada)
+        plt.plot(t, y)
+        plt.xlabel('Tempo (s)')
+        plt.ylabel('Resposta')
+        plt.title('Resposta ao Degrau do Sistema em Malha Fechada')
+        plt.grid(True)
+        plt.show()
