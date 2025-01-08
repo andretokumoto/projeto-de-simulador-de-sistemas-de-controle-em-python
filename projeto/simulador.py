@@ -16,6 +16,10 @@ def criar_funcao():
             analise.plota_bode(ft)
         elif tipo == 'polos_e_zeros':
             analise.plota_zero_polo(ft)
+        elif tipo == 'equacao_caracteristica':
+            analise.equacao_caracteristica(den)
+      #  elif tipo == 'desempenho':
+       #     analise.criterios_desempenho(den)
         else:
             raise ValueError("Tipo inválido.")
     except Exception as e:
@@ -97,6 +101,8 @@ tk.Radiobutton(window, text="Impulso", variable=var_tipo, value='impulso').grid(
 tk.Radiobutton(window, text="Degrau", variable=var_tipo, value='degrau').grid(row=8, column=1, padx=10, pady=5)
 tk.Radiobutton(window, text="Bode", variable=var_tipo, value='bode').grid(row=9, column=0, padx=10, pady=5)
 tk.Radiobutton(window, text="Polos e Zeros", variable=var_tipo, value='polos_e_zeros').grid(row=9, column=1, padx=10, pady=5)
+tk.Radiobutton(window, text="Equação Caracteristica", variable=var_tipo, value='equacao_caracteristica').grid(row=8, column=0, padx=10, pady=5)
+tk.Radiobutton(window, text="Fatores de desempenho", variable=var_tipo, value='desempenho').grid(row=8, column=0, padx=10, pady=5)
 tk.Radiobutton(window, text="Malha Fechada", variable=var_tipo, value='malha_fechada').grid(row=10, column=0, padx=10, pady=5)
 
 # Botão para executar a análise

@@ -83,3 +83,79 @@ def simular_malha_fechada(planta,sensor,controlador):
         plt.title('Resposta ao Degrau do Sistema em Malha Fechada')
         plt.grid(True)
         plt.show()
+        
+def equacao_caracteristica(denominador):
+    
+    termo_s_ordem_zero = denominador[2]
+    termo_s_ordem_um = denominador[1]
+    wn = np.sqrt(termo_s_ordem_zero)
+    fator_amortecimento = termo_s_ordem_um / (2*wn)
+
+    # plota a eq normalizada e os valores de wn e quissi
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.axis('off') #remove eixos
+    
+    texto = (
+        "Resultados Para o Sistema de Segunda Ordem\n\n"
+        f"Equação característica: {denominador[0]}s² + {denominador[1]}s + {denominador[2]}\n\n"
+        f"Fator de Amortecimento (ξ): {fator_amortecimento:.4f}\n"
+        f"Frequência Natural (ωn): {wn:.4f} rad/s\n\n"   
+    )
+    ax.text(0.5, 0.5, texto, ha='center', va='center', fontsize=12, wrap=True)
+    
+    plt.savefig("resultados_sistema.jpeg", dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    
+def criterios_desempenho(denominador):
+    
+    termo_s_ordem_zero = denominador[2]
+    termo_s_ordem_um = denominador[1]
+    wn = np.sqrt(termo_s_ordem_zero)
+    fator_amortecimento = termo_s_ordem_um / (2*wn)
+    
+    num_omega = np.sqrt(1 - (fator_amortecimento^2))
+    omega = np.arctan(num_omega/fator_amortecimento)
+    wd = wn*num_omega
+    
+
+    #classificação do sistema
+    if 0 < fator_amortecimento < 1: #resposta subamortecido
+
+        tempo_subida = (np.pi - omega) / wd
+        tempo_pico = np.pi/wd
+        expoente_mp = -(np.pi*( fator_amortecimento/num_omega))
+        mp = np.e ^ expoente_mp
+        
+        den_acomodacao = fator_amortecimento*wn
+        ts_2 = 4 / den_acomodacao
+        ts_5 = 3 / den_acomodacao
+    
+        texto = (
+            f"Fator de Amortecimento (ξ): {fator_amortecimento:.4f}\n"
+            f"Tempo de Subida (tr): {tempo_subida:.4f} s\n\n" 
+            f"Tempo de Pico (tp): {tempo_pico:.4f} s\n\n"
+            f"Sobressinal (Mp): {mp:.4f} \n\n" 
+            f"Tempo de Acomodação 2% (ts(2%)): {ts_2:.4f} s\n\n"
+            f"Tempo de Acomodação 5% (ts(5%)): {ts_5:.4f} s\n\n"    
+        )
+    
+    elif fator_amortecimento < 0 : #sistema instavel
+        texto = "Sistema Instavel !! "
+        
+    else: #sistema oscilatorio poro
+        
+        den_acomodacao = fator_amortecimento*wn
+        ts_2 = 4 / den_acomodacao
+        ts_5 = 3 / den_acomodacao
+     
+        texto = (
+            f"Tempo de Acomodação 2% (ts(2%)): {ts_2:.4f} s\n\n"
+            f"Tempo de Acomodação 5% (ts(5%)): {ts_5:.4f} s\n\n"    
+        )   
+      
+    fig, ax = plt.subplots(figsize=(6, 4))
+    ax.axis('off') #remove eixos  
+    ax.text(0.5, 0.5, texto, ha='center', va='center', fontsize=12, wrap=True)
+    plt.savefig("Desempenho.jpeg", dpi=300, bbox_inches='tight')
+    plt.show()
