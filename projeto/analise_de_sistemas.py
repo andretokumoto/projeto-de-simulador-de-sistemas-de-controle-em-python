@@ -114,7 +114,7 @@ def criterios_desempenho(denominador):
     wn = np.sqrt(termo_s_ordem_zero)
     fator_amortecimento = termo_s_ordem_um / (2*wn)
     
-    num_omega = np.sqrt(1 - (fator_amortecimento^2))
+    num_omega = np.sqrt(1 - (pow(fator_amortecimento,2)))
     omega = np.arctan(num_omega/fator_amortecimento)
     wd = wn*num_omega
     
@@ -125,7 +125,7 @@ def criterios_desempenho(denominador):
         tempo_subida = (np.pi - omega) / wd
         tempo_pico = np.pi/wd
         expoente_mp = -(np.pi*( fator_amortecimento/num_omega))
-        mp = np.e ^ expoente_mp
+        mp = pow(np.e,expoente_mp)
         
         den_acomodacao = fator_amortecimento*wn
         ts_2 = 4 / den_acomodacao
