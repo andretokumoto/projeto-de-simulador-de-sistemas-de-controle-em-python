@@ -103,7 +103,7 @@ def equacao_caracteristica(denominador):
     )
     ax.text(0.5, 0.5, texto, ha='center', va='center', fontsize=12, wrap=True)
     
-    plt.savefig("resultados_sistema.jpeg", dpi=300, bbox_inches='tight')
+    #plt.savefig("resultados_sistema.jpeg", dpi=300, bbox_inches='tight')
     plt.show()
     
     
@@ -157,5 +157,5 @@ def criterios_desempenho(denominador):
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.axis('off') #remove eixos  
     ax.text(0.5, 0.5, texto, ha='center', va='center', fontsize=12, wrap=True)
-    plt.savefig("Desempenho.jpeg", dpi=300, bbox_inches='tight')
+    #plt.savefig("Desempenho.jpeg", dpi=300, bbox_inches='tight')
     plt.show()

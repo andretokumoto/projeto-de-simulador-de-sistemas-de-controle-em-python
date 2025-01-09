@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import analise_de_sistemas as analise
 
-
 # Interface gráfica
 def criar_funcao():
     try:
@@ -18,13 +17,12 @@ def criar_funcao():
             analise.plota_zero_polo(ft)
         elif tipo == 'equacao_caracteristica':
             analise.equacao_caracteristica(den)
-      #  elif tipo == 'desempenho':
-       #     analise.criterios_desempenho(den)
+        elif tipo == 'desempenho':
+            analise.criterios_desempenho(den)
         else:
             raise ValueError("Tipo inválido.")
     except Exception as e:
         messagebox.showerror("Erro", str(e))
-
 
 def simular_malha_fechada():
     try:
@@ -40,12 +38,10 @@ def simular_malha_fechada():
         den_controlador = list(map(float, entry_denominador_controlador.get().split()))
         controlador = analise.funcao_transferencia(num_controlador, den_controlador)
 
-        analise.simular_malha_fechada(planta,sensor,controlador)
+        analise.simular_malha_fechada(planta, sensor, controlador)
 
     except Exception as e:
         messagebox.showerror("Erro", str(e))
-
-
 
 # Cria a janela principal
 window = tk.Tk()
@@ -101,17 +97,17 @@ tk.Radiobutton(window, text="Impulso", variable=var_tipo, value='impulso').grid(
 tk.Radiobutton(window, text="Degrau", variable=var_tipo, value='degrau').grid(row=8, column=1, padx=10, pady=5)
 tk.Radiobutton(window, text="Bode", variable=var_tipo, value='bode').grid(row=9, column=0, padx=10, pady=5)
 tk.Radiobutton(window, text="Polos e Zeros", variable=var_tipo, value='polos_e_zeros').grid(row=9, column=1, padx=10, pady=5)
-tk.Radiobutton(window, text="Equação Caracteristica", variable=var_tipo, value='equacao_caracteristica').grid(row=8, column=0, padx=10, pady=5)
-tk.Radiobutton(window, text="Fatores de desempenho", variable=var_tipo, value='desempenho').grid(row=8, column=0, padx=10, pady=5)
-tk.Radiobutton(window, text="Malha Fechada", variable=var_tipo, value='malha_fechada').grid(row=10, column=0, padx=10, pady=5)
+tk.Radiobutton(window, text="Equação Caracteristica", variable=var_tipo, value='equacao_caracteristica').grid(row=10, column=0, padx=10, pady=5)
+tk.Radiobutton(window, text="Fatores de desempenho", variable=var_tipo, value='desempenho').grid(row=10, column=1, padx=10, pady=5)
+tk.Radiobutton(window, text="Malha Fechada", variable=var_tipo, value='malha_fechada').grid(row=11, column=0, padx=10, pady=5)
 
 # Botão para executar a análise
 button_executar = tk.Button(window, text="Executar", command=criar_funcao)
-button_executar.grid(row=11, column=0, columnspan=2, pady=10)
+button_executar.grid(row=12, column=0, columnspan=2, pady=10)
 
 # Botão para simular malha fechada
 button_simular = tk.Button(window, text="Simular Malha Fechada", command=simular_malha_fechada)
-button_simular.grid(row=12, column=0, columnspan=2, pady=10)
+button_simular.grid(row=13, column=0, columnspan=2, pady=10)
 
 # Inicia o loop principal da interface gráfica
 window.mainloop()
