@@ -159,3 +159,17 @@ def criterios_desempenho(denominador):
     ax.text(0.5, 0.5, texto, ha='center', va='center', fontsize=12, wrap=True)
     #plt.savefig("Desempenho.jpeg", dpi=300, bbox_inches='tight')
     plt.show()
+    
+def plota_lugar_de_raizes(num,den):
+    ft = ct.tf(num,den)
+        
+    plt.figure()
+    ct.rlocus(ft, klist=np.linspace(0, 10, 100))
+    plt.grid(True)
+    plt.xlabel('Parte Real')
+    plt.ylabel('Parte imaginaria')
+    plt.title('Diagrama de Lugar das Raízes')
+    plt.show()
+    #ainda falhando, não consegue variar o klist
+
+#plota_lugar_de_raizes([1],[1,2,0])
