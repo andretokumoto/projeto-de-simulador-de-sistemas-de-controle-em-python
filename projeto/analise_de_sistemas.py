@@ -160,16 +160,22 @@ def criterios_desempenho(denominador):
     #plt.savefig("Desempenho.jpeg", dpi=300, bbox_inches='tight')
     plt.show()
     
-def plota_lugar_de_raizes(num,den):
-    ft = ct.tf(num,den)
-        
-    plt.figure()
-    ct.rlocus(ft, klist=np.linspace(0, 10, 100))
-    plt.grid(True)
-    plt.xlabel('Parte Real')
-    plt.ylabel('Parte imaginaria')
-    plt.title('Diagrama de Lugar das Raízes')
-    plt.show()
-    #ainda falhando, não consegue variar o klist
+def plota_lugar_de_raizes(num, den, klist):
+  
+  if num[0] == 0:
+    print("Erro: O coeficiente principal do numerador não pode ser zero.")
+    return
 
-#plota_lugar_de_raizes([1],[1,2,0])
+  ft = ct.tf(num, den)
+
+  for k in klist:
+    r, k = ct.rlocus(ft * k)
+    plt.plot(r.real, r.imag, 'x')
+
+  plt.grid(True)
+  plt.xlabel('Parte Real')
+  plt.ylabel('Parte Imaginária')
+  plt.title('Diagrama de Lugar das Raízes')
+  plt.show()
+
+plota_lugar_de_raizes([1],[1,2,0], np.linspace(0, 10, 100))
