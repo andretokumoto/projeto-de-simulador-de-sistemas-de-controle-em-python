@@ -2,27 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import analise_de_sistemas as analise
 
-# Interface gráfica
-def criar_funcao():
-    try:
-        num = list(map(float, entry_numerador.get().split()))
-        den = list(map(float, entry_denominador.get().split()))
-        ft = analise.funcao_transferencia(num, den)
-        tipo = var_tipo.get()
-        if tipo == 'impulso' or tipo == 'degrau':
-            analise.plota_resposta(ft, tipo)
-        elif tipo == 'bode':
-            analise.plota_bode(ft)
-        elif tipo == 'polos_e_zeros':
-            analise.plota_zero_polo(ft)
-        elif tipo == 'equacao_caracteristica':
-            analise.equacao_caracteristica(den)
-        elif tipo == 'desempenho':
-            analise.criterios_desempenho(den)
-        else:
-            raise ValueError("Tipo inválido.")
-    except Exception as e:
-        messagebox.showerror("Erro", str(e))
 
 def simular_malha_fechada():
     try:
@@ -42,6 +21,32 @@ def simular_malha_fechada():
 
     except Exception as e:
         messagebox.showerror("Erro", str(e))
+
+
+# Interface gráfica
+def criar_funcao():
+    try:
+        num = list(map(float, entry_numerador.get().split()))
+        den = list(map(float, entry_denominador.get().split()))
+        ft = analise.funcao_transferencia(num, den)
+        tipo = var_tipo.get()
+        if tipo == 'impulso' or tipo == 'degrau':
+            analise.plota_resposta(ft, tipo)
+        elif tipo == 'bode':
+            analise.plota_bode(ft)
+        elif tipo == 'polos_e_zeros':
+            analise.plota_zero_polo(ft)
+        elif tipo == 'equacao_caracteristica':
+            analise.equacao_caracteristica(den)
+        elif tipo == 'desempenho':
+            analise.criterios_desempenho(den)  
+        elif tipo=='malha_fechada':
+            simular_malha_fechada()
+        else:
+            raise ValueError("Tipo inválido.")
+    except Exception as e:
+        messagebox.showerror("Erro", str(e))
+
 
 # Cria a janela principal
 window = tk.Tk()
@@ -106,8 +111,8 @@ button_executar = tk.Button(window, text="Executar", command=criar_funcao)
 button_executar.grid(row=12, column=0, columnspan=2, pady=10)
 
 # Botão para simular malha fechada
-button_simular = tk.Button(window, text="Simular Malha Fechada", command=simular_malha_fechada)
-button_simular.grid(row=13, column=0, columnspan=2, pady=10)
+#button_simular = tk.Button(window, text="Simular Malha Fechada", command=simular_malha_fechada)
+#button_simular.grid(row=13, column=0, columnspan=2, pady=10)
 
 # Inicia o loop principal da interface gráfica
 window.mainloop()
