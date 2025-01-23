@@ -178,4 +178,4 @@ def plota_lugar_de_raizes(num, den, klist):
   plt.title('Diagrama de Lugar das Raízes')
   plt.show()
 
-plota_lugar_de_raizes([1],[1,2,0], np.linspace(0, 10, 100))
+#plota_lugar_de_raizes([1],[1,2,0], np.linspace(0, 10, 100))
